@@ -1,25 +1,26 @@
 /* --------------------------------- CNN.h ---------------------------------
  *
- * A single header implementation of Convolution Neural Networks.
- *
- * #define CNN_IMPLEMENTATION before including the header in 
- * exactly one translation unit.
+ * A single header implementation of Convolutional Neural Networks (CNNs).
+ * 
+ * Usage:
+ *    #define CNN_IMPLEMENTATION before including the header in exactly
+ *    one translation unit (.c file) to provide the function definitions.
  * 
  * 
  * Important Macros -
  *    - CNN_EXIT_ON_ERROR: 
- *          Exits when an error is encountered use only during development,
- *          It may leak memory.
+ *          Exits the program when an error occurs. Intended primarily for
+ *          development and debugging, as it prevents normal error recovery.
+ * 
  *    - CNN_ASSERT:
- *          USE ONLY WHEN IT'S UR LAST HOPE GOODLUCK!
- *          Uses assert() when error occurs, helps when debugging. 
- *          Shows which line raised the error.
+ *          Enables assertions for error checking. If an error is detected, 
+ *          assert() reports the failure and terminates the program.
  * 
  * Redefinable Macros -
  *    - CNNDEF: 
- *          Defaults to external linkage
- *          Override CNNDEF to `static inline` when using CNN.h as 
- *          header only and want the compiler to remove unused functions.
+ *          Controls the linkage specifier used for public function
+ *          declarations and definitions. Defaults to external linkage.
+ *          Can be overridden for alternative linkage configurations.
  * 
  * Author : px7nn
  * GitHub : https://github.com/px7nn/CNN.h
@@ -28,13 +29,16 @@
  * --------------------------------- ----- --------------------------------- */
 
 
-// Development Notes:
-//    This library is currently under developement. Hence frequent changes 
-//    in API is expected.
-//    Once the library ready for a stable release all layman implementations
-//    will be replaced (e.g overflow).
+/*
+ * Development Status:
+ *    This library is under active development, and its API may change
+ *    between releases.
+ *
+ *    Some implementations are preliminary and may require further work
+ *    before a stable release.
+ */
 
-
+ 
 #ifndef CNN_H
 #define CNN_H
 
