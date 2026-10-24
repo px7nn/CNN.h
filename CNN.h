@@ -38,14 +38,14 @@
  *    before a stable release.
  */
 
- 
+
 #ifndef CNN_H
 #define CNN_H
 
 #define CNN_VERSION_MAJOR   0
 #define CNN_VERSION_MINOR   1
 #define CNN_VERSION_PATH    0
-#define CNN_VERSION_STRING  "0.1.0"
+#define CNN_VERSION_STRING  "0.1.1"
 
 #include <stddef.h>
 #include <stdlib.h>
@@ -1013,10 +1013,10 @@ CNNDEF bool CNN_TRAIN(
     }
 
     // ALLOCATE TRAINING BUFFERS
-    float *flat   = malloc(feature_count      * sizeof *flat);
-    float *prob   = malloc(dense->output_size * sizeof *prob);
-    float *d_flat = malloc(feature_count      * sizeof *d_flat);
-    s_t   *order  = malloc(sample_count       * sizeof *order);
+    float *flat   = calloc(feature_count     , sizeof *flat);
+    float *prob   = calloc(dense->output_size, sizeof *prob);
+    float *d_flat = calloc(feature_count     , sizeof *d_flat);
+    s_t   *order  = calloc(sample_count      , sizeof *order);
 
     if(!flat || !prob || !d_flat || !order){
         _cnn_raise_error(CNN_ERR_ALLOC_FAILED);
@@ -1048,7 +1048,7 @@ CNNDEF bool CNN_TRAIN(
 
             // Flatten the feature map
             s_t flat_len = 0;
-            if(!CNN_Flatten(img, &flat_len, flat))
+            if(!CNN_Flatten(conv->output, &flat_len, flat))
                 goto err;
             if(flat_len != feature_count){
                 _cnn_raise_error(CNN_ERR_SHAPE_MISMATCH);
